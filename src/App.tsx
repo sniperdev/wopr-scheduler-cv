@@ -4,7 +4,7 @@ import MainPage from "./pages/MainPage";
 import { useState } from "react";
 
 function App() {
-  const [name, setName] = useState("");
+  const [name, setName] = useState("Igor");
   return (
     <Router>
       <Routes>

@@ -15,10 +15,10 @@ const MainPage = ({ name }: props) => {
     }
   }, []);
   return (
-    <>
+    <div className="h-screen">
       <MainNav name={name} />
       <MainCalendar />
-    </>
+    </div>
   );
 };
 

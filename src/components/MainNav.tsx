@@ -7,7 +7,7 @@ interface props {
 
 const MainNav = ({ name }: props) => {
   return (
-    <nav className="flex m-2">
+    <nav className="flex p-2">
       <div className="shadow-lg w-40 p-2 mx-2 rounded-2xl">Ilość godzin:</div>
       <div className="shadow-lg w-52 p-2 mx-2 rounded-2xl">
         Wynagrodzenie: 2143 zł
