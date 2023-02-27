@@ -1,7 +1,11 @@
 import React from "react";
 import { IoSend } from "react-icons/all";
 
-const MainPage = () => {
+interface props {
+  name: string;
+}
+
+const MainPage = ({ name }: props) => {
   return (
     <>
       <nav className="flex m-2">
@@ -12,9 +16,7 @@ const MainPage = () => {
         <div className="ml-auto w-10 h-10 p-3 mx-4 bg-green-600 rounded-full text-white">
           <IoSend></IoSend>
         </div>
-        <div className="shadow-lg w-40 p-2 rounded-2xl text-center">
-          Jan Kowalski
-        </div>
+        <div className="shadow-lg w-40 p-2 rounded-2xl text-center">{name}</div>
       </nav>
     </>
   );
