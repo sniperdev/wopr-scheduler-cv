@@ -24,7 +24,9 @@ const MainCalendar = () => {
           plugins={[dayGridPlugin]}
           initialView="dayGridMonth"
           height={"100%"}
+          locale={"pl"}
           initialDate={nextMonthDate}
+          headerToolbar={{ start: "", center: "title", end: "" }}
         />
       ) : (
         <p>Nie udało się pobrać daty</p>
