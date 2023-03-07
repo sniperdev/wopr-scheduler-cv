@@ -101,6 +101,8 @@ const MainCalendar = () => {
             dateClick={handleDateClick}
             events={dataList}
             weekNumberCalculation={"ISO"}
+            displayEventEnd={true}
+            eventTimeFormat={{ hour: "numeric", minute: "2-digit" }}
             headerToolbar={{ start: "", center: "title", end: "" }}
           />
         ) : (
