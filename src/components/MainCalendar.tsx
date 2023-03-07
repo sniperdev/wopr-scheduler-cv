@@ -3,6 +3,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import MainModal from "./MainModal";
+import { EventClickArg } from "@fullcalendar/core";
 
 interface DateClickInfo {
   date: Date;
@@ -19,7 +20,16 @@ const MainCalendar = () => {
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [clickedDate, setClickedDate] = useState("");
-  const [dataList, setDataList] = useState([{}]);
+
+  interface DataList {
+    title: string;
+    start: string;
+    end: string;
+  }
+
+  const [dataList, setDataList] = useState<DataList[]>([
+    { title: "", start: "", end: "" },
+  ]);
   const [option, setOption] = useState("1");
   const [weekend, setWeekend] = useState(false);
 
@@ -88,6 +98,14 @@ const MainCalendar = () => {
     setWeekend(false);
   };
 
+  const deleteDate = (e: EventClickArg) => {
+    console.log(e.event.startStr);
+    const formattedDate = e.event.startStr.slice(0, 16);
+    setDataList((dataList) =>
+      dataList.filter((data) => data.start !== formattedDate)
+    );
+  };
+
   return (
     <>
       <section className="h-5/6 mx-2 mt-12 relative">
@@ -104,6 +122,7 @@ const MainCalendar = () => {
             displayEventEnd={true}
             eventTimeFormat={{ hour: "numeric", minute: "2-digit" }}
             headerToolbar={{ start: "", center: "title", end: "" }}
+            eventClick={(e) => deleteDate(e)}
           />
         ) : (
           <p>Nie udało się pobrać daty</p>
