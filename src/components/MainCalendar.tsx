@@ -58,7 +58,31 @@ const MainCalendar = () => {
 
   const handleDate = (e: React.FormEvent) => {
     e.preventDefault();
-    setDataList([...dataList, { title: option, start: clickedDate }]);
+    let shiftStart: string;
+    let shiftEnd: string;
+
+    if (weekend && option === "1") {
+      shiftStart = "07:00";
+      shiftEnd = "15:00";
+    } else if (!weekend && option === "1") {
+      shiftStart = "06:00";
+      shiftEnd = "15:00";
+    } else if (!weekend && option === "2") {
+      shiftStart = "08:00";
+      shiftEnd = "15:00";
+    } else {
+      shiftStart = "15:00";
+      shiftEnd = "22:00";
+    }
+
+    setDataList([
+      ...dataList,
+      {
+        title: option,
+        start: clickedDate + "T" + shiftStart,
+        end: clickedDate + "T" + shiftEnd,
+      },
+    ]);
     setOption("1");
     setIsModalOpen(false);
     setWeekend(false);
