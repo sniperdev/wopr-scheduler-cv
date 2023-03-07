@@ -17,11 +17,11 @@ const MainCalendar = () => {
     y: 0,
     transform: "translate(0,0)",
   });
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [clickedDate, setClickedDate] = useState("");
   const [dataList, setDataList] = useState([{}]);
   const [option, setOption] = useState("1");
+  const [weekend, setWeekend] = useState(false);
 
   useEffect(() => {
     const getDate = () => {
@@ -61,6 +61,7 @@ const MainCalendar = () => {
     setDataList([...dataList, { title: option, start: clickedDate }]);
     setOption("1");
     setIsModalOpen(false);
+    setWeekend(false);
   };
 
   return (
@@ -86,7 +87,9 @@ const MainCalendar = () => {
             setOption={setOption}
             handledDate={handleDate}
             onClose={setIsModalOpen}
+            weekend={weekend}
             clickedDate={clickedDate}
+            setWeekend={setWeekend}
             style={{
               top: mousePosition.y,
               left: mousePosition.x,

@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { AiOutlineClose } from "react-icons/all";
 
 interface props {
   onClose: React.Dispatch<React.SetStateAction<boolean>>;
   handledDate: (e: React.FormEvent) => void;
   setOption: React.Dispatch<React.SetStateAction<string>>;
+  weekend: boolean;
+  setWeekend: React.Dispatch<React.SetStateAction<boolean>>;
   clickedDate: string;
   style?: React.CSSProperties;
 }
@@ -13,11 +15,11 @@ const MainModal = ({
   onClose,
   handledDate,
   setOption,
+  weekend,
   clickedDate,
+  setWeekend,
   style,
 }: props) => {
-  const [weekend, setWeekend] = useState(false);
-
   useEffect(() => {
     const isWeekend = () => {
       const date = new Date(clickedDate);
@@ -34,7 +36,13 @@ const MainModal = ({
         style={style}
         className="flex flex-col items-center bg-white w-1/5 h-1/4 border-2"
       >
-        <button onClick={() => onClose(false)} className="self-end">
+        <button
+          onClick={() => {
+            onClose(false);
+            setWeekend(false);
+          }}
+          className="self-end"
+        >
           <AiOutlineClose />
         </button>
         <form
