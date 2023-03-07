@@ -9,11 +9,13 @@ interface props {
 
 const MainPage = ({ name }: props) => {
   const navigate = useNavigate();
+
   useEffect(() => {
     if (!name) {
       navigate("/");
     }
   }, []);
+
   return (
     <div className="h-screen">
       <MainNav name={name} />

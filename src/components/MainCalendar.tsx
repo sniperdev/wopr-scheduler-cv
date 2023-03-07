@@ -1,9 +1,28 @@
 import React, { useEffect, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import MainModal from "./MainModal";
+
+interface DateClickInfo {
+  date: Date;
+  dateStr: string;
+  jsEvent: MouseEvent;
+}
 
 const MainCalendar = () => {
   const [nextMonthDate, setNextMonthDate] = useState("");
+  const [mousePosition, setMousePosition] = useState({
+    x: 0,
+    y: 0,
+    transform: "translate(0,0)",
+  });
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [clickedDate, setClickedDate] = useState("");
+  const [dataList, setDataList] = useState([{}]);
+  const [option, setOption] = useState("1");
+
   useEffect(() => {
     const getDate = () => {
       const today: Date = new Date();
@@ -15,23 +34,69 @@ const MainCalendar = () => {
       setNextMonthDate(firstDay.toISOString().slice(0, 10));
     };
     getDate();
-  });
+  }, []);
+
+  const handleDateClick = (info: DateClickInfo) => {
+    if (
+      info.jsEvent.x > (2 / 3) * window.innerWidth ||
+      info.jsEvent.y > (3 / 4) * window.innerHeight
+    )
+      setMousePosition({
+        x: info.jsEvent.x,
+        y: info.jsEvent.y,
+        transform: "translate(-100%, -100%)",
+      });
+    else
+      setMousePosition({
+        x: info.jsEvent.x,
+        y: info.jsEvent.y,
+        transform: "",
+      });
+    setClickedDate(info.dateStr);
+    setIsModalOpen(true);
+  };
+
+  const handleDate = (e: React.FormEvent) => {
+    e.preventDefault();
+    setDataList([...dataList, { title: option, start: clickedDate }]);
+    setOption("1");
+    setIsModalOpen(false);
+  };
 
   return (
-    <section className="h-5/6 mx-2 mt-12">
-      {nextMonthDate ? (
-        <FullCalendar
-          plugins={[dayGridPlugin]}
-          initialView="dayGridMonth"
-          height={"100%"}
-          locale={"pl"}
-          initialDate={nextMonthDate}
-          headerToolbar={{ start: "", center: "title", end: "" }}
-        />
-      ) : (
-        <p>Nie udało się pobrać daty</p>
-      )}
-    </section>
+    <>
+      <section className="h-5/6 mx-2 mt-12 relative">
+        {nextMonthDate ? (
+          <FullCalendar
+            plugins={[dayGridPlugin, interactionPlugin]}
+            initialView="dayGridMonth"
+            height={"100%"}
+            locale={"pl"}
+            initialDate={nextMonthDate}
+            dateClick={handleDateClick}
+            events={dataList}
+            weekNumberCalculation={"ISO"}
+            headerToolbar={{ start: "", center: "title", end: "" }}
+          />
+        ) : (
+          <p>Nie udało się pobrać daty</p>
+        )}
+        {isModalOpen && (
+          <MainModal
+            setOption={setOption}
+            handledDate={handleDate}
+            onClose={setIsModalOpen}
+            clickedDate={clickedDate}
+            style={{
+              top: mousePosition.y,
+              left: mousePosition.x,
+              position: "absolute",
+              transform: mousePosition.transform,
+            }}
+          />
+        )}
+      </section>
+    </>
   );
 };
 
