@@ -11,7 +11,12 @@ interface DateClickInfo {
   jsEvent: MouseEvent;
 }
 
-const MainCalendar = () => {
+interface Props {
+  setDeclaredHours: React.Dispatch<React.SetStateAction<number>>;
+  declaredHours: number;
+}
+
+const MainCalendar = ({ setDeclaredHours, declaredHours }: Props) => {
   const [nextMonthDate, setNextMonthDate] = useState("");
   const [mousePosition, setMousePosition] = useState({
     x: 0,
@@ -27,9 +32,7 @@ const MainCalendar = () => {
     end: string;
   }
 
-  const [dataList, setDataList] = useState<DataList[]>([
-    { title: "", start: "", end: "" },
-  ]);
+  const [dataList, setDataList] = useState<DataList[]>([]);
   const [option, setOption] = useState("1");
   const [weekend, setWeekend] = useState(false);
 
@@ -65,6 +68,14 @@ const MainCalendar = () => {
     setClickedDate(info.dateStr);
     setIsModalOpen(true);
   };
+  const declaredHoursHandle = () => {
+    setDeclaredHours(0);
+    dataList.forEach((element) => {
+      const start = new Date(element.start);
+      const end = new Date(element.end);
+      setDeclaredHours(declaredHours + (end.getHours() - start.getHours()));
+    });
+  };
 
   const handleDate = (e: React.FormEvent) => {
     e.preventDefault();
@@ -99,12 +110,14 @@ const MainCalendar = () => {
   };
 
   const deleteDate = (e: EventClickArg) => {
-    console.log(e.event.startStr);
     const formattedDate = e.event.startStr.slice(0, 16);
     setDataList((dataList) =>
       dataList.filter((data) => data.start !== formattedDate)
     );
   };
+  useEffect(() => {
+    declaredHoursHandle();
+  }, [dataList]);
 
   return (
     <>
