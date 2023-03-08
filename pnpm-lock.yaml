@@ -9,6 +9,7 @@ specifiers:
   '@types/react-dom': ^18.0.10
   '@vitejs/plugin-react': ^3.1.0
   autoprefixer: ^10.4.13
+  export-from-json: ^1.7.2
   postcss: ^8.4.21
   react: ^18.2.0
   react-dom: ^18.2.0
@@ -23,6 +24,7 @@ dependencies:
   '@fullcalendar/daygrid': 6.1.4_@fullcalendar+core@6.1.4
   '@fullcalendar/interaction': 6.1.4_@fullcalendar+core@6.1.4
   '@fullcalendar/react': 6.1.4_6alpvorycvuhssp2uvumgv3fue
+  export-from-json: 1.7.2
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-icons: 4.7.1_react@18.2.0
@@ -816,6 +818,10 @@ packages:
     resolution: {integrity: sha512-vbRorB5FUQWvla16U8R/qgaFIya2qGzwDrNmCZuYKrbdSUMG6I1ZCGQRefkRVhuOkIGVne7BQ35DSfo1qvJqFg==}
     engines: {node: '>=0.8.0'}
     dev: true
+
+  /export-from-json/1.7.2:
+    resolution: {integrity: sha512-AvjenglU3qqiXWnNz69KvTbZ6m1XhBiauSvyR+0KayPHCiWWhR0dQmaHJCHLWcFHPXeZ3/2PlgPKtGLLMApYmg==}
+    dev: false
 
   /fast-glob/3.2.12:
     resolution: {integrity: sha512-DVj4CQIYYow0BlaelwK1pHl5n5cRSJfM60UA0zK891sVInoPri2Ekj7+e1CT3/3qxXenpI+nBBmQAcJPJgaj4w==}
