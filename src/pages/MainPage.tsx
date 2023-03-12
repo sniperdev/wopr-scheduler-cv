@@ -7,8 +7,15 @@ interface props {
   name: string;
 }
 
+interface DataList {
+  title: string;
+  start: string;
+  end: string;
+}
+
 const MainPage = ({ name }: props) => {
   const navigate = useNavigate();
+  const [dataList, setDataList] = useState<DataList[]>([]);
   const [declaredHours, setDeclaredHours] = useState(0);
   const [declaredSalary, setDeclaredSalary] = useState(0);
 
@@ -28,10 +35,13 @@ const MainPage = ({ name }: props) => {
         name={name}
         declaredHours={declaredHours}
         declaredSalary={declaredSalary}
+        dataList={dataList}
       />
       <MainCalendar
         setDeclaredHours={setDeclaredHours}
         declaredHours={declaredHours}
+        setDataList={setDataList}
+        dataList={dataList}
       />
     </div>
   );

@@ -11,12 +11,25 @@ interface DateClickInfo {
   jsEvent: MouseEvent;
 }
 
+interface DataList {
+  title: string;
+  start: string;
+  end: string;
+}
+
 interface Props {
   setDeclaredHours: React.Dispatch<React.SetStateAction<number>>;
   declaredHours: number;
+  dataList: DataList[];
+  setDataList: React.Dispatch<React.SetStateAction<DataList[]>>;
 }
 
-const MainCalendar = ({ setDeclaredHours, declaredHours }: Props) => {
+const MainCalendar = ({
+  setDeclaredHours,
+  declaredHours,
+  setDataList,
+  dataList,
+}: Props) => {
   const [nextMonthDate, setNextMonthDate] = useState("");
   const [mousePosition, setMousePosition] = useState({
     x: 0,
@@ -26,13 +39,6 @@ const MainCalendar = ({ setDeclaredHours, declaredHours }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [clickedDate, setClickedDate] = useState("");
 
-  interface DataList {
-    title: string;
-    start: string;
-    end: string;
-  }
-
-  const [dataList, setDataList] = useState<DataList[]>([]);
   const [option, setOption] = useState("1");
   const [weekend, setWeekend] = useState(false);
 
