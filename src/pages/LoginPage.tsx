@@ -17,12 +17,12 @@ const LoginPage = ({ setName }: props) => {
         onSubmit={(e) => handleLogin(e)}
         className="flex flex-col gap-2 w-1/4"
       >
-        <label>Podaj swoje imie i nazwisko:</label>
+        <label>Podaj swoje imię i nazwisko:</label>
         <input
           type="text"
           placeholder="Jan Kowalski"
           onChange={(e) => setName(e.target.value)}
-          className="border-2 border-black rounded-2xl p-2"
+          className="border-2 border-black rounded-2xl p-2" required
         />
         <button
           type="submit"
