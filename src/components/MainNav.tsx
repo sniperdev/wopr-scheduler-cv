@@ -26,7 +26,7 @@ const MainNav = ({ name, declaredHours, declaredSalary, dataList }: Props) => {
   return (
     <nav className="flex p-2">
       <div className="shadow-lg w-40 p-2 mx-2 rounded-2xl">
-        Ilość godzin: {declaredHours}
+        Liczba godzin: {declaredHours}
       </div>
       <div className="shadow-lg w-52 p-2 mx-2 rounded-2xl">
         Wynagrodzenie: {declaredSalary} zł
