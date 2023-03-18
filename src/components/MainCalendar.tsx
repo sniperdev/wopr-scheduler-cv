@@ -11,7 +11,7 @@ interface DateClickInfo {
   jsEvent: MouseEvent;
 }
 
-interface DataList {
+interface DateList {
   title: string;
   start: string;
   end: string;
@@ -20,15 +20,15 @@ interface DataList {
 interface Props {
   setDeclaredHours: React.Dispatch<React.SetStateAction<number>>;
   declaredHours: number;
-  dataList: DataList[];
-  setDataList: React.Dispatch<React.SetStateAction<DataList[]>>;
+  dateList: DateList[];
+  setDataList: React.Dispatch<React.SetStateAction<DateList[]>>;
 }
 
 const MainCalendar = ({
   setDeclaredHours,
   declaredHours,
   setDataList,
-  dataList,
+  dateList,
 }: Props) => {
   const [nextMonthDate, setNextMonthDate] = useState("");
   const [mousePosition, setMousePosition] = useState({
@@ -76,7 +76,7 @@ const MainCalendar = ({
   };
   const declaredHoursHandle = () => {
     setDeclaredHours(0);
-    dataList.forEach((element) => {
+    dateList.forEach((element) => {
       const start = new Date(element.start);
       const end = new Date(element.end);
       setDeclaredHours(declaredHours + (end.getHours() - start.getHours()));
@@ -103,7 +103,7 @@ const MainCalendar = ({
     }
 
     setDataList([
-      ...dataList,
+      ...dateList,
       {
         title: option,
         start: clickedDate + "T" + shiftStart,
@@ -123,7 +123,7 @@ const MainCalendar = ({
   };
   useEffect(() => {
     declaredHoursHandle();
-  }, [dataList]);
+  }, [dateList]);
 
   return (
     <>
@@ -136,7 +136,7 @@ const MainCalendar = ({
             locale={"pl"}
             initialDate={nextMonthDate}
             dateClick={handleDateClick}
-            events={dataList}
+            events={dateList}
             weekNumberCalculation={"ISO"}
             displayEventEnd={true}
             eventTimeFormat={{ hour: "numeric", minute: "2-digit" }}

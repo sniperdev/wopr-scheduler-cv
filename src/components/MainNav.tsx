@@ -2,7 +2,7 @@ import React from "react";
 import { IoSend } from "react-icons/all";
 import exportFromJSON from "export-from-json";
 
-interface DataList {
+interface DateList {
   title: string;
   start: string;
   end: string;
@@ -12,13 +12,13 @@ interface Props {
   name: string;
   declaredHours: number;
   declaredSalary: number;
-  dataList: DataList[];
+  dateList: DateList[];
 }
 
-const MainNav = ({ name, declaredHours, declaredSalary, dataList }: Props) => {
+const MainNav = ({ name, declaredHours, declaredSalary, dateList }: Props) => {
   const exportToExcel = () => {
     exportFromJSON({
-      data: dataList,
+      data: dateList,
       fileName: "test",
       exportType: "xls",
     });
