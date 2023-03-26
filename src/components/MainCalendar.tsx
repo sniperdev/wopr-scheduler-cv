@@ -54,7 +54,7 @@ const MainCalendar = ({
     };
     getDate();
   }, []);
-
+  const [optionsToShow, setOptionsToShow] = useState<string[]>([]);
   const handleDateClick = (info: DateClickInfo) => {
     if (
       info.jsEvent.x > (2 / 3) * window.innerWidth ||
@@ -71,6 +71,10 @@ const MainCalendar = ({
         y: info.jsEvent.y,
         transform: "",
       });
+    dateList.forEach((element) => {
+      if (element.start.includes(clickedDate))
+        setOptionsToShow([...optionsToShow, element.title]);
+    });
     setClickedDate(info.dateStr);
     setIsModalOpen(true);
   };
@@ -154,12 +158,14 @@ const MainCalendar = ({
             weekend={weekend}
             clickedDate={clickedDate}
             setWeekend={setWeekend}
+            dateList={dateList}
             style={{
               top: mousePosition.y,
               left: mousePosition.x,
               position: "absolute",
               transform: mousePosition.transform,
             }}
+            optionsToShow={optionsToShow}
           />
         )}
       </section>
