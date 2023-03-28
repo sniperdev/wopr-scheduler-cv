@@ -39,7 +39,7 @@ const MainCalendar = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [clickedDate, setClickedDate] = useState("");
 
-  const [option, setOption] = useState("1");
+  const [option, setOption] = useState("");
   const [weekend, setWeekend] = useState(false);
 
   useEffect(() => {
@@ -71,11 +71,12 @@ const MainCalendar = ({
         y: info.jsEvent.y,
         transform: "",
       });
+    setClickedDate(info.dateStr);
+    setOptionsToShow([]);
     dateList.forEach((element) => {
       if (element.start.includes(clickedDate))
         setOptionsToShow([...optionsToShow, element.title]);
     });
-    setClickedDate(info.dateStr);
     setIsModalOpen(true);
   };
   const declaredHoursHandle = () => {
@@ -101,9 +102,15 @@ const MainCalendar = ({
     } else if (!weekend && option === "2") {
       shiftStart = "08:00";
       shiftEnd = "15:00";
-    } else {
+    } else if(option==="3"){
       shiftStart = "15:00";
       shiftEnd = "22:00";
+    }
+    else{
+      setIsModalOpen(false);
+      setWeekend(false);
+      setOptionsToShow([]);
+      return;
     }
 
     setDataList([
@@ -114,9 +121,10 @@ const MainCalendar = ({
         end: clickedDate + "T" + shiftEnd,
       },
     ]);
-    setOption("1");
+    setOption("");
     setIsModalOpen(false);
     setWeekend(false);
+    setOptionsToShow([]);
   };
 
   const deleteDate = (e: EventClickArg) => {
