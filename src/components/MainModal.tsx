@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { AiOutlineClose } from "react-icons/all";
 interface DateList {
   title: string;
@@ -25,7 +25,6 @@ const MainModal = ({
   clickedDate,
   setWeekend,
   style,
-  dateList,
   optionsToShow,
 }: props) => {
   useEffect(() => {
@@ -70,7 +69,8 @@ const MainModal = ({
               onChange={(event) => setOption(event.target.value)}>
               <option value=""></option>
               <option value="1">1</option>
-              <option value="2">2</option>
+              {!weekend &&
+              <option value="2">2</option>}
             </select>
           ) : ((optionsToShow.includes("1") || optionsToShow.includes("2")) && optionsToShow.includes("3")) ? <p>Nie ma już innych opcji</p>:
             (
@@ -78,7 +78,8 @@ const MainModal = ({
               onChange={(event) => setOption(event.target.value)}>
               <option value=""></option>
               <option value="1">1</option>
-              <option value="2">2</option>
+              {!weekend &&
+              <option value="2">2</option>}
               <option value="3">3</option>
             </select>
           )}
