@@ -39,7 +39,7 @@ const MainCalendar = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [clickedDate, setClickedDate] = useState("");
 
-  const [option, setOption] = useState("1");
+  const [option, setOption] = useState("");
   const [weekend, setWeekend] = useState(false);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const MainCalendar = ({
     };
     getDate();
   }, []);
-
+  const [optionsToShow, setOptionsToShow] = useState<string[]>([]);
   const handleDateClick = (info: DateClickInfo) => {
     if (
       info.jsEvent.x > (2 / 3) * window.innerWidth ||
@@ -72,6 +72,11 @@ const MainCalendar = ({
         transform: "",
       });
     setClickedDate(info.dateStr);
+    setOptionsToShow([]);
+    dateList.forEach((element) => {
+      if (element.start.includes(clickedDate))
+        setOptionsToShow([...optionsToShow, element.title]);
+    });
     setIsModalOpen(true);
   };
   const declaredHoursHandle = () => {
@@ -97,9 +102,15 @@ const MainCalendar = ({
     } else if (!weekend && option === "2") {
       shiftStart = "08:00";
       shiftEnd = "15:00";
-    } else {
+    } else if(option==="3"){
       shiftStart = "15:00";
       shiftEnd = "22:00";
+    }
+    else{
+      setIsModalOpen(false);
+      setWeekend(false);
+      setOptionsToShow([]);
+      return;
     }
 
     setDataList([
@@ -110,9 +121,10 @@ const MainCalendar = ({
         end: clickedDate + "T" + shiftEnd,
       },
     ]);
-    setOption("1");
+    setOption("");
     setIsModalOpen(false);
     setWeekend(false);
+    setOptionsToShow([]);
   };
 
   const deleteDate = (e: EventClickArg) => {
@@ -154,12 +166,14 @@ const MainCalendar = ({
             weekend={weekend}
             clickedDate={clickedDate}
             setWeekend={setWeekend}
+            dateList={dateList}
             style={{
               top: mousePosition.y,
               left: mousePosition.x,
               position: "absolute",
               transform: mousePosition.transform,
             }}
+            optionsToShow={optionsToShow}
           />
         )}
       </section>

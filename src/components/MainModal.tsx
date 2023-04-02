@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { AiOutlineClose } from "react-icons/all";
-
+interface DateList {
+  title: string;
+  start: string;
+  end: string;
+}
 interface props {
   onClose: React.Dispatch<React.SetStateAction<boolean>>;
   handledDate: (e: React.FormEvent) => void;
@@ -9,6 +13,8 @@ interface props {
   setWeekend: React.Dispatch<React.SetStateAction<boolean>>;
   clickedDate: string;
   style?: React.CSSProperties;
+  dateList: DateList[];
+  optionsToShow: string[];
 }
 
 const MainModal = ({
@@ -19,6 +25,7 @@ const MainModal = ({
   clickedDate,
   setWeekend,
   style,
+  optionsToShow,
 }: props) => {
   useEffect(() => {
     const isWeekend = () => {
@@ -50,24 +57,32 @@ const MainModal = ({
           className="flex flex-col items-center justify-center grow gap-4"
         >
           <label>Wybierz numer zmiany</label>
-          <select
-            onChange={(e) => {
-              setOption(e.target.value);
-            }}
-          >
-            {weekend ? (
-              <>
-                <option value="1">1</option>
-                <option value="3">3</option>
-              </>
-            ) : (
-              <>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-              </>
-            )}
-          </select>
+          {optionsToShow.includes("1") || optionsToShow.includes("2")? (
+            <select
+              onChange={(event) => setOption(event.target.value)}
+            >
+              <option value=""></option>
+              <option value="3">3</option>
+            </select>
+          ) : optionsToShow.includes("3") ? (
+            <select
+              onChange={(event) => setOption(event.target.value)}>
+              <option value=""></option>
+              <option value="1">1</option>
+              {!weekend &&
+              <option value="2">2</option>}
+            </select>
+          ) : ((optionsToShow.includes("1") || optionsToShow.includes("2")) && optionsToShow.includes("3")) ? <p>Nie ma już innych opcji</p>:
+            (
+            <select
+              onChange={(event) => setOption(event.target.value)}>
+              <option value=""></option>
+              <option value="1">1</option>
+              {!weekend &&
+              <option value="2">2</option>}
+              <option value="3">3</option>
+            </select>
+          )}
           <button className="w-52 h-8 rounded-2xl bg-green-600 font-bold text-white">
             Dodaj
           </button>
