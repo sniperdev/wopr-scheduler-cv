@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import timeGridPlugin from "@fullcalendar/timegrid";
 import MainModal from "./MainModal";
 import { EventClickArg } from "@fullcalendar/core";
 
@@ -102,11 +103,10 @@ const MainCalendar = ({
     } else if (!weekend && option === "2") {
       shiftStart = "08:00";
       shiftEnd = "15:00";
-    } else if(option==="3"){
+    } else if (option === "3") {
       shiftStart = "15:00";
       shiftEnd = "22:00";
-    }
-    else{
+    } else {
       setIsModalOpen(false);
       setWeekend(false);
       setOptionsToShow([]);
@@ -142,7 +142,7 @@ const MainCalendar = ({
       <section className="h-5/6 mx-2 mt-12 relative">
         {nextMonthDate ? (
           <FullCalendar
-            plugins={[dayGridPlugin, interactionPlugin]}
+            plugins={[timeGridPlugin, dayGridPlugin, interactionPlugin]}
             initialView="dayGridMonth"
             height={"100%"}
             locale={"pl"}
@@ -152,7 +152,11 @@ const MainCalendar = ({
             weekNumberCalculation={"ISO"}
             displayEventEnd={true}
             eventTimeFormat={{ hour: "numeric", minute: "2-digit" }}
-            headerToolbar={{ start: "", center: "title", end: "" }}
+            headerToolbar={{
+              start: "prev next",
+              center: "title",
+              end: "timeGridWeek dayGridMonth",
+            }}
             eventClick={(e) => deleteDate(e)}
           />
         ) : (
