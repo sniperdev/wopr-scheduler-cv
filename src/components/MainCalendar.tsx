@@ -16,6 +16,7 @@ interface DateList {
   title: string;
   start: string;
   end: string;
+  backgroundColor: string;
 }
 
 interface Props {
@@ -112,15 +113,27 @@ const MainCalendar = ({
       setOptionsToShow([]);
       return;
     }
-
-    setDataList([
-      ...dateList,
-      {
-        title: option,
-        start: clickedDate + "T" + shiftStart,
-        end: clickedDate + "T" + shiftEnd,
-      },
-    ]);
+    if (clickedDate > nextMonthDate) {
+      setDataList([
+        ...dateList,
+        {
+          title: option,
+          start: clickedDate + "T" + shiftStart,
+          end: clickedDate + "T" + shiftEnd,
+          backgroundColor: "green",
+        },
+      ]);
+    } else {
+      setDataList([
+        ...dateList,
+        {
+          title: option,
+          start: clickedDate + "T" + shiftStart,
+          end: clickedDate + "T" + shiftEnd,
+          backgroundColor: "red",
+        },
+      ]);
+    }
     setOption("");
     setIsModalOpen(false);
     setWeekend(false);
@@ -178,6 +191,7 @@ const MainCalendar = ({
               transform: mousePosition.transform,
             }}
             optionsToShow={optionsToShow}
+            nextMonthDate={nextMonthDate}
           />
         )}
       </section>

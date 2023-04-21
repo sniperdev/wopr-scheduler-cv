@@ -15,6 +15,7 @@ interface props {
   style?: React.CSSProperties;
   dateList: DateList[];
   optionsToShow: string[];
+  nextMonthDate: string;
 }
 
 const MainModal = ({
@@ -26,6 +27,7 @@ const MainModal = ({
   setWeekend,
   style,
   optionsToShow,
+  nextMonthDate,
 }: props) => {
   useEffect(() => {
     const isWeekend = () => {
@@ -37,6 +39,11 @@ const MainModal = ({
     };
     isWeekend();
   }, []);
+  const checkIfDateIsInRange = () => {
+    if (clickedDate < nextMonthDate) {
+      return <p>Ta data jest już poza zakresem</p>;
+    }
+  };
   return (
     <section className="w-screen h-screen fixed top-0 left-0 z-10">
       <div
@@ -52,6 +59,7 @@ const MainModal = ({
         >
           <AiOutlineClose />
         </button>
+        {checkIfDateIsInRange()}
         <form
           onSubmit={(e) => handledDate(e)}
           className="flex flex-col items-center justify-center grow gap-4"
