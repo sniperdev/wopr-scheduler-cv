@@ -74,10 +74,10 @@ const MainCalendar = ({
       });
     setClickedDate(info.dateStr);
     setOptionsToShow([]);
-    dateList.forEach((element) => {
-      if (element.start.includes(clickedDate))
-        setOptionsToShow([...optionsToShow, element.title]);
-    });
+    const filteredList = dateList.filter((item) =>
+      item.start.includes(clickedDate)
+    );
+    setOptionsToShow(filteredList.map((item) => item.title));
     setIsModalOpen(true);
   };
   const declaredHoursHandle = () => {
