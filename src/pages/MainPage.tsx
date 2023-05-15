@@ -11,6 +11,7 @@ interface DateList {
   title: string;
   start: string;
   end: string;
+  backgroundColor: string;
 }
 
 const MainPage = ({ name }: props) => {
