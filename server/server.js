@@ -1,6 +1,8 @@
-require('dotenv').config();
-const express = require('express');
-const mysql = require('mysql');
+import dotenv from 'dotenv';
+dotenv.config();
+
+import express from 'express';
+import mysql from 'mysql';
 
 const app = express();
 
@@ -13,9 +15,8 @@ const db = mysql.createConnection({
 })
 
 app.listen(8800,()=>{
-	console.log("Server is up and running on"+process.env.PORT)
+	console.log("Server is up and running on "+process.env.PORT)
 })
-
 
 db.connect((err)=>{
 	if(err) console.log("Error connecting",err)
