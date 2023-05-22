@@ -5,10 +5,11 @@ import { useState } from "react";
 
 function App() {
   const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<LoginPage setName={setName} />} />
+        <Route path="/" element={<LoginPage setName={setName} setPassword={setPassword} />} />
         <Route path="/app" element={<MainPage name={name} />} />
       </Routes>
     </Router>

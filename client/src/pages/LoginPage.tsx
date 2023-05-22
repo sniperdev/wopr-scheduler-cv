@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom";
 
 interface props {
   setName: React.Dispatch<React.SetStateAction<string>>;
+  setPassword: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const LoginPage = ({ setName }: props) => {
+const LoginPage = ({ setName, setPassword }: props) => {
   const navigate = useNavigate();
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -17,11 +18,17 @@ const LoginPage = ({ setName }: props) => {
         onSubmit={(e) => handleLogin(e)}
         className="flex flex-col gap-2 w-1/4"
       >
-        <label>Podaj swoje imię i nazwisko:</label>
+        <label>Podaj swój email oraz hasło:</label>
         <input
-          type="text"
-          placeholder="Jan Kowalski"
+          type="email"
+          placeholder="youremail@site.com"
           onChange={(e) => setName(e.target.value)}
+          className="border-2 border-black rounded-2xl p-2" required
+        />
+        <input
+          type="password"
+          placeholder="12345678"
+          onChange={(e) => setPassword(e.target.value)}
           className="border-2 border-black rounded-2xl p-2" required
         />
         <button
