@@ -25,4 +25,5 @@ dist-ssr
 
 server/.env
 
-server/pnpm-lock.yaml
+pnpm-lock.yaml
+
