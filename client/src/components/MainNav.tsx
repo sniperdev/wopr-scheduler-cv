@@ -2,12 +2,7 @@ import React from "react";
 import { IoSend } from "react-icons/all";
 import exportFromJSON from "export-from-json";
 import { User } from "../interfaces/User";
-
-interface DateList {
-  title: string;
-  start: string;
-  end: string;
-}
+import { DateList } from "../interfaces/DateList";
 
 interface Props {
   user: User;
