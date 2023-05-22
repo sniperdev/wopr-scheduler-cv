@@ -2,9 +2,15 @@ import React, { useEffect, useState } from "react";
 import MainNav from "../components/MainNav";
 import MainCalendar from "../components/MainCalendar";
 import { useNavigate } from "react-router-dom";
-
+interface User {
+  ID_RATOWNIKA: string;
+  IMIE: string;
+  NAZWISKO: string;
+  TEL: number;
+  EMAIL: string;
+}
 interface props {
-  name: string;
+  user: User;
 }
 
 interface DateList {
@@ -14,16 +20,17 @@ interface DateList {
   backgroundColor: string;
 }
 
-const MainPage = ({ name }: props) => {
+const MainPage = ({ user }: props) => {
   const navigate = useNavigate();
   const [dateList, setDataList] = useState<DateList[]>([]);
   const [declaredHours, setDeclaredHours] = useState(0);
   const [declaredSalary, setDeclaredSalary] = useState(0);
 
   useEffect(() => {
-    if (!name) {
+    if (user.IMIE.length === 0) {
       navigate("/");
     }
+    console.log(user.IMIE.length);
   }, []);
 
   useEffect(() => {
@@ -33,7 +40,7 @@ const MainPage = ({ name }: props) => {
   return (
     <div className="h-screen">
       <MainNav
-        name={name}
+        user={user}
         declaredHours={declaredHours}
         declaredSalary={declaredSalary}
         dateList={dateList}

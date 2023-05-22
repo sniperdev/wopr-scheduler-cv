@@ -1,16 +1,32 @@
 import LoginPage from "./pages/LoginPage";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import MainPage from "./pages/MainPage";
 import { useState } from "react";
 
+interface User {
+  ID_RATOWNIKA: string;
+  IMIE: string;
+  NAZWISKO: string;
+  TEL: number;
+  EMAIL: string;
+}
+
 function App() {
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
+  const [user, setUser] = useState<User>();
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<LoginPage setName={setName} setPassword={setPassword} />} />
-        <Route path="/app" element={<MainPage name={name} />} />
+        <Route path="/" element={<LoginPage setUser={setUser} />} />
+        {user ? (
+          <Route path="/app" element={<MainPage user={user} />} />
+        ) : (
+          <Route path="/app" element={<LoginPage setUser={setUser} />} />
+        )}
       </Routes>
     </Router>
   );

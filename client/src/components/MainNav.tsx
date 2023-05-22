@@ -7,15 +7,21 @@ interface DateList {
   start: string;
   end: string;
 }
-
+interface User {
+  ID_RATOWNIKA: string;
+  IMIE: string;
+  NAZWISKO: string;
+  TEL: number;
+  EMAIL: string;
+}
 interface Props {
-  name: string;
+  user: User;
   declaredHours: number;
   declaredSalary: number;
   dateList: DateList[];
 }
 
-const MainNav = ({ name, declaredHours, declaredSalary, dateList }: Props) => {
+const MainNav = ({ user, declaredHours, declaredSalary, dateList }: Props) => {
   const exportToExcel = () => {
     exportFromJSON({
       data: dateList,
@@ -37,7 +43,9 @@ const MainNav = ({ name, declaredHours, declaredSalary, dateList }: Props) => {
       >
         <IoSend></IoSend>
       </div>
-      <div className="shadow-lg w-40 p-2 rounded-2xl text-center">{name}</div>
+      <div className="shadow-lg w-40 p-2 rounded-2xl text-center">
+        {`${user.IMIE} ${user.NAZWISKO}`}
+      </div>
     </nav>
   );
 };

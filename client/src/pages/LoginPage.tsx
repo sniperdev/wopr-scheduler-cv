@@ -1,17 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+interface User {
+  ID_RATOWNIKA: string;
+  IMIE: string;
+  NAZWISKO: string;
+  TEL: number;
+  EMAIL: string;
+}
 interface props {
-  setName: React.Dispatch<React.SetStateAction<string>>;
-  setPassword: React.Dispatch<React.SetStateAction<string>>;
+  setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
 }
 
-const LoginPage = ({ setName, setPassword }: props) => {
+const LoginPage = ({ setUser }: props) => {
   const navigate = useNavigate();
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    navigate("/app");
+
+    const respone = await fetch("http://localhost:8800/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email: name, HASLO: password }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setUser(data);
+        if (data) navigate("/app");
+      })
+      .catch((err) => console.log(err));
   };
+
   return (
     <div className="w-screen h-screen flex items-center justify-center">
       <form
@@ -23,13 +45,15 @@ const LoginPage = ({ setName, setPassword }: props) => {
           type="email"
           placeholder="youremail@site.com"
           onChange={(e) => setName(e.target.value)}
-          className="border-2 border-black rounded-2xl p-2" required
+          className="border-2 border-black rounded-2xl p-2"
+          required
         />
         <input
           type="password"
           placeholder="12345678"
           onChange={(e) => setPassword(e.target.value)}
-          className="border-2 border-black rounded-2xl p-2" required
+          className="border-2 border-black rounded-2xl p-2"
+          required
         />
         <button
           type="submit"
