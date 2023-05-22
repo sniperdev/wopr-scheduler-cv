@@ -5,18 +5,12 @@ import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import MainModal from "./MainModal";
 import { EventClickArg } from "@fullcalendar/core";
+import { DateList } from "../interfaces/DateList";
 
 interface DateClickInfo {
   date: Date;
   dateStr: string;
   jsEvent: MouseEvent;
-}
-
-interface DateList {
-  title: string;
-  start: string;
-  end: string;
-  backgroundColor: string;
 }
 
 interface Props {

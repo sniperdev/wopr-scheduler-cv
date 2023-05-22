@@ -1,10 +1,7 @@
 import React, { useEffect } from "react";
 import { AiOutlineClose } from "react-icons/all";
-interface DateList {
-  title: string;
-  start: string;
-  end: string;
-}
+import { DateList } from "../interfaces/DateList";
+
 interface props {
   onClose: React.Dispatch<React.SetStateAction<boolean>>;
   handledDate: (e: React.FormEvent) => void;

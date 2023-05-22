@@ -7,14 +7,7 @@ import {
 } from "react-router-dom";
 import MainPage from "./pages/MainPage";
 import { useState } from "react";
-
-interface User {
-  ID_RATOWNIKA: string;
-  IMIE: string;
-  NAZWISKO: string;
-  TEL: number;
-  EMAIL: string;
-}
+import { User } from "./interfaces/User";
 
 function App() {
   const [user, setUser] = useState<User>();

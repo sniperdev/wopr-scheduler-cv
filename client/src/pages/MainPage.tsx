@@ -2,22 +2,10 @@ import React, { useEffect, useState } from "react";
 import MainNav from "../components/MainNav";
 import MainCalendar from "../components/MainCalendar";
 import { useNavigate } from "react-router-dom";
-interface User {
-  ID_RATOWNIKA: string;
-  IMIE: string;
-  NAZWISKO: string;
-  TEL: number;
-  EMAIL: string;
-}
+import { User } from "../interfaces/User";
+import { DateList } from "../interfaces/DateList";
 interface props {
   user: User;
-}
-
-interface DateList {
-  title: string;
-  start: string;
-  end: string;
-  backgroundColor: string;
 }
 
 const MainPage = ({ user }: props) => {
