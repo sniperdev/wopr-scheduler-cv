@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { User } from "../interfaces/User";
 
-interface User {
-  ID_RATOWNIKA: string;
-  IMIE: string;
-  NAZWISKO: string;
-  TEL: number;
-  EMAIL: string;
-}
 interface props {
   setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
 }

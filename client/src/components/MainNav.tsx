@@ -1,19 +1,14 @@
 import React from "react";
 import { IoSend } from "react-icons/all";
 import exportFromJSON from "export-from-json";
+import { User } from "../interfaces/User";
 
 interface DateList {
   title: string;
   start: string;
   end: string;
 }
-interface User {
-  ID_RATOWNIKA: string;
-  IMIE: string;
-  NAZWISKO: string;
-  TEL: number;
-  EMAIL: string;
-}
+
 interface Props {
   user: User;
   declaredHours: number;
