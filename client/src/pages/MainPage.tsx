@@ -64,6 +64,7 @@ const MainPage = ({ user }: props) => {
         declaredHours={declaredHours}
         setDataList={setDataList}
         dateList={dateList}
+        user={user}
       />
     </div>
   );

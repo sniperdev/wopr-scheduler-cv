@@ -12,11 +12,12 @@ export const getDates = (req, res) => {
 };
 
 export const addDate = (req, res) => {
-  const q = "INSERT INTO daty (ID_RATOWNIKA, DATA, ZMIANA) VALUES (?,?,?)";
+  const q =
+    "INSERT INTO daty (ID_RATOWNIKA, START, END, ZMIANA) VALUES (?,?,?,?)";
 
   db.query(
     q,
-    [req.body.id_ratownika, req.body.data, req.body.zmiana],
+    [req.body.id_ratownika, req.body.start, req.body.end, req.body.zmiana],
     (err, data) => {
       if (err) return res.status(500).json(err);
       return res.status(200).json("Date has been sent");

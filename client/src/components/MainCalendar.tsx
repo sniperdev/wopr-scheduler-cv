@@ -6,6 +6,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import MainModal from "./MainModal";
 import { EventClickArg } from "@fullcalendar/core";
 import { DateList } from "../interfaces/DateList";
+import { User } from "../interfaces/User";
 
 interface DateClickInfo {
   date: Date;
@@ -18,6 +19,7 @@ interface Props {
   declaredHours: number;
   dateList: DateList[];
   setDataList: React.Dispatch<React.SetStateAction<DateList[]>>;
+  user: User;
 }
 
 const MainCalendar = ({
@@ -25,6 +27,7 @@ const MainCalendar = ({
   declaredHours,
   setDataList,
   dateList,
+  user,
 }: Props) => {
   const [nextMonthDate, setNextMonthDate] = useState("");
   const [mousePosition, setMousePosition] = useState({
@@ -83,7 +86,20 @@ const MainCalendar = ({
       setDeclaredHours(declaredHours + (end.getHours() - start.getHours()));
     });
   };
-
+  const addData = async (shiftStart: string, shiftEnd: string) => {
+    await fetch("http://localhost:8800/api/dates/adddate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id_ratownika: user.ID_RATOWNIKA,
+        start: clickedDate + "T" + shiftStart,
+        end: clickedDate + "T" + shiftEnd,
+        zmiana: option,
+      }),
+    });
+  };
   const handleDate = (e: React.FormEvent) => {
     e.preventDefault();
     let shiftStart: string;
@@ -128,6 +144,7 @@ const MainCalendar = ({
         },
       ]);
     }
+    addData(shiftStart, shiftEnd);
     setOption("");
     setIsModalOpen(false);
     setWeekend(false);
