@@ -151,11 +151,25 @@ const MainCalendar = ({
     setOptionsToShow([]);
   };
 
+  const deleteDatefromDB = async (formattedData: string) => {
+    await fetch("http://localhost:8800/api/dates/removedate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id_ratownika: user.ID_RATOWNIKA,
+        start: formattedData,
+      }),
+    });
+  };
   const deleteDate = (e: EventClickArg) => {
     const formattedDate = e.event.startStr.slice(0, 16);
     setDataList((dataList) =>
       dataList.filter((data) => data.start !== formattedDate)
     );
+    console.log(formattedDate);
+    deleteDatefromDB(formattedDate);
   };
   useEffect(() => {
     declaredHoursHandle();

@@ -25,7 +25,6 @@ const MainPage = ({ user }: props) => {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
           const formattedData = data.map(
             (element: { ZMIANA: Number; START: string; END: string }) => ({
               title: element.ZMIANA,

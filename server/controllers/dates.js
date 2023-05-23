@@ -25,9 +25,9 @@ export const addDate = (req, res) => {
   );
 };
 export const removeDate = (req, res) => {
-  const q = "DELETE FROM daty WHERE id = ?";
+  const q = "DELETE FROM daty WHERE id_ratownika = ? AND start = ?";
 
-  db.query(q, [req.body.id], (err, data) => {
+  db.query(q, [req.body.id_ratownika, req.body.start], (err, data) => {
     if (err) return res.status(500).json(err);
     return res.status(200).json("Date has been removed");
   });
