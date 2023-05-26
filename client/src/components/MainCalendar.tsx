@@ -168,7 +168,6 @@ const MainCalendar = ({
     setDataList((dataList) =>
       dataList.filter((data) => data.start !== formattedDate)
     );
-    console.log(formattedDate);
     deleteDatefromDB(formattedDate);
   };
   useEffect(() => {
