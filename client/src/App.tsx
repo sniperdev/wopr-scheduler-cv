@@ -19,10 +19,16 @@ function App() {
         {user ? (
           <>
             <Route path="/app" element={<MainPage user={user} />} />
-            <Route path="/adminpanel" element={<AdminPanel />} />
+            <Route path="/adminpanel" element={<AdminPanel user={user} />} />
           </>
         ) : (
-          <Route path="/app" element={<LoginPage setUser={setUser} />} />
+          <>
+            <Route path="/app" element={<LoginPage setUser={setUser} />} />
+            <Route
+              path="/adminpanel"
+              element={<LoginPage setUser={setUser} />}
+            />
+          </>
         )}
       </Routes>
     </Router>
