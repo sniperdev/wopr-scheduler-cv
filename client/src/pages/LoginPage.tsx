@@ -23,7 +23,8 @@ const LoginPage = ({ setUser }: props) => {
       .then((response) => response.json())
       .then((data) => {
         setUser(data);
-        if (data) navigate("/app");
+        if (data.ADMIN === 1) navigate("/adminpanel");
+        else navigate("/app");
       })
       .catch((err) => console.log(err));
   };
