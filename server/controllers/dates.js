@@ -13,7 +13,7 @@ export const getDates = (req, res) => {
 
 export const getAllDates = (req, res) => {
   const q =
-    "SELECT ratownicy.ID_RATOWNIKA, ratownicy.imie, ratownicy.nazwisko, daty.start, daty.end, daty.ZMIANA FROM ratownicy JOIN daty ON ratownicy.ID_RATOWNIKA = daty.ID_RATOWNIKA;";
+    "SELECT ratownicy.ID_RATOWNIKA, ratownicy.imie, ratownicy.nazwisko, daty.start, daty.end, daty.ZMIANA FROM ratownicy JOIN daty ON ratownicy.ID_RATOWNIKA = daty.ID_RATOWNIKA ORDER BY daty.start";
 
   db.query(q, (err, data) => {
     if (err) return res.status(500).json(err);
