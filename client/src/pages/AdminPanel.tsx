@@ -7,23 +7,17 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
+import { allDates } from "../interfaces/allDates";
 
 interface props {
   user: User;
 }
-interface allDates {
-  ZMIANA: Number;
-  START: string;
-  END: string;
-  ID_RATOWNIKA: number;
-  IMIE: string;
-  NAZWISKO: string;
-}
+
 export default function AdminPanel({ user }: props) {
   const navigate = useNavigate();
 
   const [open, setOpen] = useState<boolean>(false);
-  const [allDate, setAllDate] = useState<allDates[]>([]);
+  const [allDates, setAllDates] = useState<allDates[]>([]);
 
   useEffect(() => {
     if (user.IMIE.length === 0) {
@@ -58,7 +52,7 @@ export default function AdminPanel({ user }: props) {
               end: element.end,
             })
           );
-          setAllDate([...allDate, ...formattedData]);
+          setAllDates([...allDates, ...formattedData]);
           console.log(data);
         })
         .catch((err) => console.log(err));
@@ -67,7 +61,7 @@ export default function AdminPanel({ user }: props) {
   }, []);
   return (
     <div className="flex h-screen w-screen">
-      {open && <AdminShiftsList />}
+      {open && <AdminShiftsList allDates={allDates} />}
       <div className="w-full h-5/6">
         <AdminNav user={user} open={open} setOpen={setOpen} />
         <FullCalendar
