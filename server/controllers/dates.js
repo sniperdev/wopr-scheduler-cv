@@ -12,7 +12,8 @@ export const getDates = (req, res) => {
 };
 
 export const getAllDates = (req, res) => {
-  const q = "SELECT * FROM daty";
+  const q =
+    "SELECT ratownicy.ID_RATOWNIKA, ratownicy.imie, ratownicy.nazwisko, daty.start, daty.end, daty.ZMIANA FROM ratownicy JOIN daty ON ratownicy.ID_RATOWNIKA = daty.ID_RATOWNIKA;";
 
   db.query(q, (err, data) => {
     if (err) return res.status(500).json(err);
