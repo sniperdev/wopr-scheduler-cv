@@ -1,5 +1,5 @@
 export interface allDates {
-  title: Number;
+  title: number;
   start: string;
   end: string;
   id_ratownika: number;
