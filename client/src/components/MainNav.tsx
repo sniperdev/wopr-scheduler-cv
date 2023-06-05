@@ -1,5 +1,5 @@
 import React from "react";
-import { IoSend } from "react-icons/all";
+import { IoSend } from "react-icons/io5";
 import exportFromJSON from "export-from-json";
 import { User } from "../interfaces/User";
 import { DateList } from "../interfaces/DateList";

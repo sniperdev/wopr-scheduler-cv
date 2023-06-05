@@ -1,5 +1,5 @@
 import { User } from "../interfaces/User";
-import { AiOutlineAlignLeft } from "react-icons/all";
+import { AiOutlineAlignLeft } from "react-icons/ai";
 
 interface props {
   user: User;
