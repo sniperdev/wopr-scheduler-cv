@@ -8,16 +8,17 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
 import { allDates } from "../interfaces/allDates";
+import { DateList } from "../interfaces/DateList";
 
 interface props {
   user: User;
 }
-
 export default function AdminPanel({ user }: props) {
   const navigate = useNavigate();
 
   const [open, setOpen] = useState<boolean>(false);
-  const [allDates, setAllDates] = useState<allDates[]>([]);
+  const [allFetchedDates, setAllFetchedDates] = useState<allDates[]>([]);
+  const [adminDates, setAdminDates] = useState<DateList[]>([]);
 
   useEffect(() => {
     if (user.IMIE.length === 0) {
@@ -52,7 +53,7 @@ export default function AdminPanel({ user }: props) {
               end: element.end,
             })
           );
-          setAllDates([...allDates, ...formattedData]);
+          setAllFetchedDates([...allFetchedDates, ...formattedData]);
           console.log(data);
         })
         .catch((err) => console.log(err));
@@ -61,7 +62,13 @@ export default function AdminPanel({ user }: props) {
   }, []);
   return (
     <div className="flex h-screen w-screen">
-      {open && <AdminShiftsList allDates={allDates} />}
+      {open && (
+        <AdminShiftsList
+          allFetchedDates={allFetchedDates}
+          setAdminDates={setAdminDates}
+          adminDates={adminDates}
+        />
+      )}
       <div className="w-full h-5/6">
         <AdminNav user={user} open={open} setOpen={setOpen} />
         <FullCalendar
@@ -71,6 +78,7 @@ export default function AdminPanel({ user }: props) {
           locale={"pl"}
           weekNumberCalculation={"ISO"}
           displayEventEnd={true}
+          events={adminDates}
           eventTimeFormat={{ hour: "numeric", minute: "2-digit" }}
           headerToolbar={{
             start: "prev next",
