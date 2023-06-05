@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { AiOutlineClose } from "react-icons/all";
 import { DateList } from "../interfaces/DateList";
+import { AiOutlineClose } from "react-icons/ai";
 
 interface props {
   onClose: React.Dispatch<React.SetStateAction<boolean>>;
