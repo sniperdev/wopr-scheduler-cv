@@ -44,3 +44,16 @@ export const removeDate = (req, res) => {
     return res.status(200).json("Date has been removed");
   });
 };
+
+export const readyWorkShifts = (req, res) => {
+  const q =
+    "INSERT INTO gotowezmiany (ID_RATOWNIKA, START, END, ZMIANA) VALUES (?,?,?,?)";
+  db.query(
+    q,
+    [req.body.id_ratownika, req.body.start, req.body.end, req.body.zmiana],
+    (err) => {
+      if (err) return res.status(500).json(err);
+      return res.status(200).json("Date added");
+    }
+  );
+};
