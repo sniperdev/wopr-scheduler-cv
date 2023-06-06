@@ -4,15 +4,17 @@ import AdminOneShift from "./AdminOneShift";
 import { DateList } from "../interfaces/DateList";
 
 interface props {
+  setAllFetchedDates: React.Dispatch<React.SetStateAction<allDates[]>>;
   allFetchedDates: allDates[];
   setAdminDates: React.Dispatch<React.SetStateAction<DateList[]>>;
   adminDates: DateList[];
 }
-function AdminShiftsList({
+const AdminShiftsList = ({
+  setAllFetchedDates,
   allFetchedDates,
   setAdminDates,
   adminDates,
-}: props) {
+}: props) => {
   return (
     <div className="w-1/3 h-screen p-2 py-4">
       <h2>Choose Shifts:</h2>
@@ -25,10 +27,11 @@ function AdminShiftsList({
           start={element.start}
           setAdminDates={setAdminDates}
           adminDates={adminDates}
+          setAllFetchedDates={setAllFetchedDates}
+          allFetchedDates={allFetchedDates}
         />
       ))}
     </div>
   );
-}
-
+};
 export default AdminShiftsList;

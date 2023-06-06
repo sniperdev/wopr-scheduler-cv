@@ -54,7 +54,6 @@ export default function AdminPanel({ user }: props) {
             })
           );
           setAllFetchedDates([...allFetchedDates, ...formattedData]);
-          console.log(data);
         })
         .catch((err) => console.log(err));
     };
@@ -64,6 +63,7 @@ export default function AdminPanel({ user }: props) {
     <div className="flex h-screen w-screen">
       {open && (
         <AdminShiftsList
+          setAllFetchedDates={setAllFetchedDates}
           allFetchedDates={allFetchedDates}
           setAdminDates={setAdminDates}
           adminDates={adminDates}
