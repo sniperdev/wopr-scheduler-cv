@@ -25,6 +25,7 @@ const AdminShiftsList = ({
           name={element.imie}
           surname={element.nazwisko}
           start={element.start}
+          end={element.end}
           setAdminDates={setAdminDates}
           adminDates={adminDates}
           setAllFetchedDates={setAllFetchedDates}

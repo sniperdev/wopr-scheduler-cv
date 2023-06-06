@@ -7,6 +7,7 @@ interface props {
   name: string;
   surname: string;
   start: string;
+  end: string;
   setAdminDates: React.Dispatch<React.SetStateAction<DateList[]>>;
   adminDates: DateList[];
   setAllFetchedDates: React.Dispatch<React.SetStateAction<allDates[]>>;
@@ -18,6 +19,7 @@ const AdminOneShift = ({
   name,
   surname,
   start,
+  end,
   setAdminDates,
   adminDates,
   setAllFetchedDates,
@@ -33,7 +35,7 @@ const AdminOneShift = ({
         {
           title: `${title} - ${name} ${surname}`,
           start: start,
-          end: start,
+          end: end,
           id_ratownika: element.id_ratownika,
         },
       ]);

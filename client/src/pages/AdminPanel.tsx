@@ -64,6 +64,7 @@ export default function AdminPanel({ user }: props) {
     const event = info.event;
     if (event.start) {
       const startEvent = event.startStr.toString();
+      const endEvent = event.endStr.toString();
 
       const parts = event.title.split(" - ");
       const zmiana = parts[0];
@@ -91,7 +92,7 @@ export default function AdminPanel({ user }: props) {
           imie: name,
           nazwisko: surname,
           start: startEvent.slice(0, 16),
-          end: startEvent.slice(0, 16),
+          end: endEvent.slice(0, 16),
           id_ratownika: element[0].id_ratownika,
         },
       ]);
