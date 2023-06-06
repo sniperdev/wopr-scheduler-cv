@@ -9,6 +9,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
 import { allDates } from "../interfaces/allDates";
 import { DateList } from "../interfaces/DateList";
+import { EventClickArg } from "@fullcalendar/core";
 
 interface props {
   user: User;
@@ -59,6 +60,37 @@ export default function AdminPanel({ user }: props) {
     };
     fetchAllDates();
   }, []);
+  const deleteDate = (info: EventClickArg) => {
+    const event = info.event;
+    if (event.start) {
+      const startEvent = event.startStr.toString();
+      console.log(startEvent.slice(0, 16));
+      setAdminDates(
+        adminDates.filter((date) => {
+          return !(
+            date.start === startEvent.slice(0, 16) && date.title === event.title
+          );
+        })
+      );
+      const parts = event.title.split(" - ");
+
+      const zmiana = parts[0];
+      const name = parts[1].split(" ")[0];
+      const surname = parts[1].split(" ")[1];
+      setAllFetchedDates([
+        ...allFetchedDates,
+        {
+          title: Number(zmiana),
+          imie: name,
+          nazwisko: surname,
+          start: startEvent.slice(0, 16),
+          end: startEvent.slice(0, 16),
+          id_ratownika: 1,
+        },
+        //TODO: zły id ratownika, zostału to zastosowany jako boilerplate żeby sprawdzić czy wszystko działa. Musimy tu zastosowac jakieś obejście aby można było wrzucić tu id poprawnego ratownika ponieważnie będziemy tego mogli potem wysłać do bazy danych.
+      ]);
+    }
+  };
   return (
     <div className="flex h-screen w-screen">
       {open && (
@@ -85,6 +117,7 @@ export default function AdminPanel({ user }: props) {
             center: "title",
             end: "timeGridWeek dayGridMonth",
           }}
+          eventClick={deleteDate}
         />
       </div>
     </div>
