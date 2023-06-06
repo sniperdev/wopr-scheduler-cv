@@ -46,7 +46,7 @@ export default function AdminPanel({ user }: props) {
               imie: string;
               nazwisko: string;
             }) => ({
-              idRatownika: element.ID_RATOWNIKA,
+              id_ratownika: element.ID_RATOWNIKA,
               title: element.ZMIANA,
               imie: element.imie,
               nazwisko: element.nazwisko,
@@ -64,7 +64,18 @@ export default function AdminPanel({ user }: props) {
     const event = info.event;
     if (event.start) {
       const startEvent = event.startStr.toString();
-      console.log(startEvent.slice(0, 16));
+
+      const parts = event.title.split(" - ");
+      const zmiana = parts[0];
+      const name = parts[1].split(" ")[0];
+      const surname = parts[1].split(" ")[1];
+
+      const element = adminDates.filter((element) => {
+        return (
+          element.title === event.title &&
+          element.start === startEvent.slice(0, 16)
+        );
+      });
       setAdminDates(
         adminDates.filter((date) => {
           return !(
@@ -72,11 +83,7 @@ export default function AdminPanel({ user }: props) {
           );
         })
       );
-      const parts = event.title.split(" - ");
 
-      const zmiana = parts[0];
-      const name = parts[1].split(" ")[0];
-      const surname = parts[1].split(" ")[1];
       setAllFetchedDates([
         ...allFetchedDates,
         {
@@ -85,9 +92,8 @@ export default function AdminPanel({ user }: props) {
           nazwisko: surname,
           start: startEvent.slice(0, 16),
           end: startEvent.slice(0, 16),
-          id_ratownika: 1,
+          id_ratownika: element[0].id_ratownika,
         },
-        //TODO: zły id ratownika, zostału to zastosowany jako boilerplate żeby sprawdzić czy wszystko działa. Musimy tu zastosowac jakieś obejście aby można było wrzucić tu id poprawnego ratownika ponieważnie będziemy tego mogli potem wysłać do bazy danych.
       ]);
     }
   };

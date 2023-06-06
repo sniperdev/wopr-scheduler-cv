@@ -24,10 +24,20 @@ const AdminOneShift = ({
   allFetchedDates,
 }: props) => {
   const handleClick = () => {
-    setAdminDates([
-      ...adminDates,
-      { title: `${title} - ${name} ${surname}`, start: start, end: start },
-    ]);
+    const element = allFetchedDates.find((e) => {
+      return e.nazwisko === surname && e.start === start;
+    });
+    if (element) {
+      setAdminDates([
+        ...adminDates,
+        {
+          title: `${title} - ${name} ${surname}`,
+          start: start,
+          end: start,
+          id_ratownika: element.id_ratownika,
+        },
+      ]);
+    }
     setAllFetchedDates(
       allFetchedDates.filter((element) => {
         return !(element.nazwisko === surname && element.start === start);
