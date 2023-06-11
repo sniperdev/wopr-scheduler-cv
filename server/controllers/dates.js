@@ -58,3 +58,14 @@ export const readyWorkShifts = (req, res) => {
     return res.status(200).json("Date added");
   });
 };
+
+export const getReadyShifts = (res) => {
+  const q = "SELECT * FROM gotowedaty";
+
+  db.query(q, (err, data) => {
+    if (err) return res.status(500).json(err);
+    if (data.length === 0)
+      return res.status(404).json("There is no dates available");
+    if (data.length > 0) return res.status(200).json(data);
+  });
+};
