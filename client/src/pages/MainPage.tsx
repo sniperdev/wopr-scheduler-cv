@@ -62,7 +62,7 @@ const MainPage = ({ user }: props) => {
         setReadyShifts={setReadyShifts}
       />
       {readyshifts ? (
-        <MainReadyShifts />
+        <MainReadyShifts user={user} />
       ) : (
         <MainCalendar
           setDeclaredHours={setDeclaredHours}

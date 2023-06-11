@@ -3,11 +3,17 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { useEffect, useState } from "react";
+import { User } from "../interfaces/User";
 
-function MainReadyShifts() {
+interface props {
+  user: User;
+}
+
+function MainReadyShifts({ user }: props) {
   const [dates, setDates] = useState();
 
   useEffect(() => {
+    console.log(user);
     const fetchDates = async () => {
       await fetch("http://localhost:8800/api/dates/getreadysshifts", {
         method: "GET",
@@ -18,11 +24,13 @@ function MainReadyShifts() {
         .then((response) => response.json())
         .then((data) => {
           const formattedData = data.map(
-            (element: { TITLE: Number; START: string; END: string }) => ({
+            (element: { TITLE: string; START: string; END: string }) => ({
               title: element.TITLE,
               start: element.START,
               end: element.END,
-              backgroundColor: "green",
+              backgroundColor: element.TITLE.includes(user.NAZWISKO)
+                ? "green"
+                : "grey",
             })
           );
           setDates(formattedData);
