@@ -109,7 +109,12 @@ export default function AdminPanel({ user }: props) {
         />
       )}
       <div className="w-full h-5/6 p-2">
-        <AdminNav user={user} open={open} setOpen={setOpen} />
+        <AdminNav
+          user={user}
+          open={open}
+          setOpen={setOpen}
+          adminDates={adminDates}
+        />
         <FullCalendar
           plugins={[timeGridPlugin, dayGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
