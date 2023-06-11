@@ -15,6 +15,6 @@ router.get("/alldatesadmin", getAllDates);
 router.post("/adddate", addDate);
 router.post("/removedate", removeDate);
 router.post("/readyworkshifts", readyWorkShifts);
-router.post("/getreadysshifts", getReadyShifts);
+router.get("/getreadysshifts", getReadyShifts);
 
 export default router;

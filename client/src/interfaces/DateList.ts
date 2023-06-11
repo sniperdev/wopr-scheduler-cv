@@ -1,5 +1,5 @@
 export interface DateList {
-  id_ratownika: number;
+  id_ratownika?: number;
   title: string;
   start: string;
   end: string;

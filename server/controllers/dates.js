@@ -46,12 +46,14 @@ export const removeDate = (req, res) => {
 };
 
 export const readyWorkShifts = (req, res) => {
-  const q = "INSERT INTO gotowezmiany (ID_RATOWNIKA, START, END) VALUES ?";
+  const q =
+    "INSERT INTO gotowezmiany (ID_RATOWNIKA, START, END, TITLE) VALUES ?";
   console.log(req.body);
   const values = req.body.map((item) => [
     item.id_ratownika,
     item.start,
     item.end,
+    item.title,
   ]);
   db.query(q, [values], (err) => {
     if (err) return res.status(500).json(err);
@@ -59,8 +61,8 @@ export const readyWorkShifts = (req, res) => {
   });
 };
 
-export const getReadyShifts = (res) => {
-  const q = "SELECT * FROM gotowedaty";
+export const getReadyShifts = (req, res) => {
+  const q = "SELECT * FROM gotowezmiany";
 
   db.query(q, (err, data) => {
     if (err) return res.status(500).json(err);

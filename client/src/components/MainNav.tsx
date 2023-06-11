@@ -9,9 +9,16 @@ interface Props {
   declaredHours: number;
   declaredSalary: number;
   dateList: DateList[];
+  setReadyShifts: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const MainNav = ({ user, declaredHours, declaredSalary, dateList }: Props) => {
+const MainNav = ({
+  user,
+  declaredHours,
+  declaredSalary,
+  dateList,
+  setReadyShifts,
+}: Props) => {
   const exportToExcel = () => {
     exportFromJSON({
       data: dateList,
@@ -27,14 +34,23 @@ const MainNav = ({ user, declaredHours, declaredSalary, dateList }: Props) => {
       <div className="shadow-lg w-52 p-2 mx-2 rounded-2xl">
         Wynagrodzenie: {declaredSalary} zł
       </div>
-      <div
-        onClick={exportToExcel}
-        className="ml-auto w-10 h-10 p-3 mx-4 bg-green-600 rounded-full text-white"
-      >
-        <IoSend></IoSend>
-      </div>
+
       <div className="shadow-lg w-40 p-2 rounded-2xl text-center">
         {`${user.IMIE} ${user.NAZWISKO}`}
+      </div>
+      <div className="ml-auto">
+        <button
+          onClick={() => setReadyShifts(false)}
+          className="px-4 mx-2 bg-slate-800 text-white"
+        >
+          Moje zmiany
+        </button>
+        <button
+          onClick={() => setReadyShifts(true)}
+          className="px-4 mx-2 bg-slate-800 text-white"
+        >
+          Gotowy grafik
+        </button>
       </div>
     </nav>
   );

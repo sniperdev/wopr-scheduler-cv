@@ -4,6 +4,7 @@ import MainCalendar from "../components/MainCalendar";
 import { useNavigate } from "react-router-dom";
 import { User } from "../interfaces/User";
 import { DateList } from "../interfaces/DateList";
+import MainReadyShifts from "../components/MainReadyShifts";
 interface props {
   user: User;
 }
@@ -13,6 +14,7 @@ const MainPage = ({ user }: props) => {
   const [dateList, setDataList] = useState<DateList[]>([]);
   const [declaredHours, setDeclaredHours] = useState(0);
   const [declaredSalary, setDeclaredSalary] = useState(0);
+  const [readyshifts, setReadyShifts] = useState(false);
 
   useEffect(() => {
     const fetchDateList = async () => {
@@ -57,14 +59,19 @@ const MainPage = ({ user }: props) => {
         declaredHours={declaredHours}
         declaredSalary={declaredSalary}
         dateList={dateList}
+        setReadyShifts={setReadyShifts}
       />
-      <MainCalendar
-        setDeclaredHours={setDeclaredHours}
-        declaredHours={declaredHours}
-        setDataList={setDataList}
-        dateList={dateList}
-        user={user}
-      />
+      {readyshifts ? (
+        <MainReadyShifts />
+      ) : (
+        <MainCalendar
+          setDeclaredHours={setDeclaredHours}
+          declaredHours={declaredHours}
+          setDataList={setDataList}
+          dateList={dateList}
+          user={user}
+        />
+      )}
     </div>
   );
 };
