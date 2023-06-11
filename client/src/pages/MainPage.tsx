@@ -43,7 +43,7 @@ const MainPage = ({ user }: props) => {
   }, []);
 
   useEffect(() => {
-    if (user) {
+    if (user.IMIE.length === 0) {
       navigate("/");
     }
   }, []);

@@ -10,6 +10,8 @@ const LoginPage = ({ setUser }: props) => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<number>();
+
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -20,7 +22,16 @@ const LoginPage = ({ setUser }: props) => {
       },
       body: JSON.stringify({ email: name, HASLO: password }),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          setError(response.status);
+          return response.text().then((errorMessage) => {
+            throw new Error(errorMessage);
+          });
+        }
+      })
       .then((data) => {
         setUser(data);
         if (data.ADMIN === 1) navigate("/adminpanel");
@@ -30,7 +41,13 @@ const LoginPage = ({ setUser }: props) => {
   };
 
   return (
-    <div className="w-screen h-screen flex items-center justify-center">
+    <div className="w-screen h-screen flex flex-col items-center justify-center">
+      {error === 400 ? (
+        <p className="text-red-700 font-bold">Błędne hasło!</p>
+      ) : null}
+      {error === 404 ? (
+        <p className="text-red-700 font-bold">Nie ma takiego użytkownika!</p>
+      ) : null}
       <form
         onSubmit={(e) => handleLogin(e)}
         className="flex flex-col gap-2 w-1/4"

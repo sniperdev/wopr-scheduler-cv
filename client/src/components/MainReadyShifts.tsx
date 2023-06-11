@@ -13,7 +13,6 @@ function MainReadyShifts({ user }: props) {
   const [dates, setDates] = useState();
 
   useEffect(() => {
-    console.log(user);
     const fetchDates = async () => {
       await fetch("http://localhost:8800/api/dates/getreadysshifts", {
         method: "GET",
