@@ -55,14 +55,14 @@ const LoginPage = ({ setUser }: props) => {
         <label>Podaj swój email oraz hasło:</label>
         <input
           type="email"
-          placeholder="youremail@site.com"
+          placeholder="E-mail"
           onChange={(e) => setName(e.target.value)}
           className="border-2 border-black rounded-2xl p-2"
           required
         />
         <input
           type="password"
-          placeholder="12345678"
+          placeholder="Hasło"
           onChange={(e) => setPassword(e.target.value)}
           className="border-2 border-black rounded-2xl p-2"
           required
