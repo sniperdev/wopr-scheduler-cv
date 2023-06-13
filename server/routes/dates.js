@@ -6,6 +6,7 @@ import {
   getAllDates,
   readyWorkShifts,
   getReadyShifts,
+  getUnaddedShifts,
 } from "../controllers/dates.js";
 
 const router = express.Router();
@@ -16,5 +17,6 @@ router.post("/adddate", addDate);
 router.post("/removedate", removeDate);
 router.post("/readyworkshifts", readyWorkShifts);
 router.get("/getreadysshifts", getReadyShifts);
+router.get("/getunaddedshifts", getUnaddedShifts);
 
 export default router;

@@ -71,3 +71,15 @@ export const getReadyShifts = (req, res) => {
     if (data.length > 0) return res.status(200).json(data);
   });
 };
+
+export const getUnaddedShifts = (req, res) => {
+  const q =
+    "SELECT t1.start, t1.end, t1.id_ratownika, r.imie, r.nazwisko FROM daty t1 LEFT JOIN gotowezmiany t2 ON t1.id_ratownika = t2.id_ratownika AND t1.start = t2.start AND t1.end = t2.end JOIN ratownicy r ON t1.id_ratownika = r.id_ratownika WHERE t2.id_ratownika IS NULL";
+
+  db.query(q, (err, data) => {
+    if (err) return res.status(500).json(err);
+    if (data.length === 0)
+      return res.status(404).json("There is no dates available");
+    if (data.length > 0) return res.status(200).json(data);
+  });
+};
