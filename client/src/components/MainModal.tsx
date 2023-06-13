@@ -38,25 +38,11 @@ const MainModal = ({
   }, []);
   const checkIfDateIsInRange = () => {
     if (clickedDate < nextMonthDate) {
-      return <p>Ta data jest już poza zakresem</p>;
-    }
-  };
-  return (
-    <section className="w-screen h-screen fixed top-0 left-0 z-10">
-      <div
-        style={style}
-        className="flex flex-col items-center bg-white w-1/5 h-1/4 border-2"
-      >
-        <button
-          onClick={() => {
-            onClose(false);
-            setWeekend(false);
-          }}
-          className="self-end"
-        >
-          <AiOutlineClose />
-        </button>
-        {checkIfDateIsInRange()}
+      return (
+        <p className="text-center h-full">Ta data jest już poza zakresem</p>
+      );
+    } else
+      return (
         <form
           onSubmit={(e) => handledDate(e)}
           className="flex flex-col items-center justify-center grow gap-4"
@@ -88,6 +74,24 @@ const MainModal = ({
             Dodaj
           </button>
         </form>
+      );
+  };
+  return (
+    <section className="w-screen h-screen fixed top-0 left-0 z-10">
+      <div
+        style={style}
+        className="flex flex-col items-center bg-white w-1/5 h-1/4 border-2"
+      >
+        <button
+          onClick={() => {
+            onClose(false);
+            setWeekend(false);
+          }}
+          className="self-end"
+        >
+          <AiOutlineClose />
+        </button>
+        {checkIfDateIsInRange()}
       </div>
     </section>
   );
