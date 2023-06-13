@@ -46,6 +46,13 @@ export const removeDate = (req, res) => {
 };
 
 export const readyWorkShifts = (req, res) => {
+  const qDelete = "DELETE FROM gotowezmiany";
+
+  db.query(qDelete, (res) => {
+    if (res) {
+      return res.status(500).json(res);
+    }
+  });
   const q =
     "INSERT INTO gotowezmiany (ID_RATOWNIKA, START, END, TITLE) VALUES ?";
   console.log(req.body);
@@ -74,7 +81,7 @@ export const getReadyShifts = (req, res) => {
 
 export const getUnaddedShifts = (req, res) => {
   const q =
-    "SELECT t1.start, t1.end, t1.id_ratownika, r.imie, r.nazwisko FROM daty t1 LEFT JOIN gotowezmiany t2 ON t1.id_ratownika = t2.id_ratownika AND t1.start = t2.start AND t1.end = t2.end JOIN ratownicy r ON t1.id_ratownika = r.id_ratownika WHERE t2.id_ratownika IS NULL";
+    "SELECT t1.start, t1.end, t1.id_ratownika, r.imie, r.nazwisko, t1.zmiana FROM daty t1 LEFT JOIN gotowezmiany t2 ON t1.id_ratownika = t2.id_ratownika AND t1.start = t2.start AND t1.end = t2.end JOIN ratownicy r ON t1.id_ratownika = r.id_ratownika WHERE t2.id_ratownika IS NULL";
 
   db.query(q, (err, data) => {
     if (err) return res.status(500).json(err);

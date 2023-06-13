@@ -26,10 +26,39 @@ export default function AdminPanel({ user }: props) {
       navigate("/");
     }
   }, []);
-
+  useEffect(() => {
+    const fetchAdminDates = async () => {
+      await fetch("http://localhost:8800/api/dates/getreadysshifts", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          const formattedData = data.map(
+            (element: {
+              START: string;
+              END: string;
+              ID_RATOWNIKA: number;
+              TITLE: string;
+            }) => ({
+              start: element.START,
+              end: element.END,
+              id_ratownika: element.ID_RATOWNIKA,
+              title: element.TITLE,
+            })
+          );
+          setAdminDates([...adminDates, ...formattedData]);
+        })
+        .catch((err) => console.log(err));
+    };
+    fetchAdminDates();
+  }, []);
   useEffect(() => {
     const fetchAllDates = async () => {
-      await fetch("http://localhost:8800/api/dates/alldatesadmin", {
+      await fetch("http://localhost:8800/api/dates/getunaddedshifts", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -39,15 +68,15 @@ export default function AdminPanel({ user }: props) {
         .then((data) => {
           const formattedData = data.map(
             (element: {
-              ZMIANA: Number;
+              zmiana: Number;
               start: string;
               end: string;
-              ID_RATOWNIKA: number;
+              id_ratownika: number;
               imie: string;
               nazwisko: string;
             }) => ({
-              id_ratownika: element.ID_RATOWNIKA,
-              title: element.ZMIANA,
+              id_ratownika: element.id_ratownika,
+              title: element.zmiana,
               imie: element.imie,
               nazwisko: element.nazwisko,
               start: element.start,
