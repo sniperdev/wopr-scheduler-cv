@@ -1,19 +1,19 @@
-import { useEffect } from "react";
 import { DateList } from "../interfaces/DateList";
 import { User } from "../interfaces/User";
 import { AiOutlineAlignLeft } from "react-icons/ai";
+import {apiUrl} from "../utils/apiUrl";
 
-interface props {
+interface Props {
   user: User;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   adminDates: DateList[];
 }
 
-function AdminNav({ user, setOpen, open, adminDates }: props) {
+function AdminNav({ user, setOpen, open, adminDates }: Props) {
   const sendToDatabase = async () => {
-    const respone = await fetch(
-      "http://localhost:8800/api/dates/readyworkshifts",
+    const response = await fetch(
+      `${apiUrl}/api/dates/readyworkshifts`,
       {
         method: "POST",
         headers: {
@@ -40,7 +40,7 @@ function AdminNav({ user, setOpen, open, adminDates }: props) {
         Wyślij
       </div>
       <div className="shadow-lg w-40 p-2 rounded-2xl text-center">
-        {`${user.IMIE} ${user.NAZWISKO}`}
+        {`${user.imie} ${user.nazwisko}`}
       </div>
     </nav>
   );

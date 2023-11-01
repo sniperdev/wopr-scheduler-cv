@@ -4,17 +4,18 @@ import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { useEffect, useState } from "react";
 import { User } from "../interfaces/User";
+import {apiUrl} from "../utils/apiUrl";
 
-interface props {
+interface Props {
   user: User;
 }
 
-function MainReadyShifts({ user }: props) {
+function MainReadyShifts({ user }: Props) {
   const [dates, setDates] = useState();
 
   useEffect(() => {
     const fetchDates = async () => {
-      await fetch("http://localhost:8800/api/dates/getreadysshifts", {
+      await fetch(`${apiUrl}/api/gotowezmiany`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -23,11 +24,11 @@ function MainReadyShifts({ user }: props) {
         .then((response) => response.json())
         .then((data) => {
           const formattedData = data.map(
-            (element: { TITLE: string; START: string; END: string }) => ({
-              title: element.TITLE,
-              start: element.START,
-              end: element.END,
-              backgroundColor: element.TITLE.includes(user.NAZWISKO)
+            (element: { title: string; start: string; end: string }) => ({
+              title: element.title,
+              start: element.start,
+              end: element.end,
+              backgroundColor: element.title.includes(user.nazwisko)
                 ? "green"
                 : "grey",
             })

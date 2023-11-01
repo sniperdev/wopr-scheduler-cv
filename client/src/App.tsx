@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  useNavigate,
 } from "react-router-dom";
 import MainPage from "./pages/MainPage";
 import { useState } from "react";

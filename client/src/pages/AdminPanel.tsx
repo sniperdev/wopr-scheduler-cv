@@ -10,6 +10,7 @@ import FullCalendar from "@fullcalendar/react";
 import { allDates } from "../interfaces/allDates";
 import { DateList } from "../interfaces/DateList";
 import { EventClickArg } from "@fullcalendar/core";
+import {apiUrl} from "../utils/apiUrl";
 
 interface props {
   user: User;
@@ -22,13 +23,13 @@ export default function AdminPanel({ user }: props) {
   const [adminDates, setAdminDates] = useState<DateList[]>([]);
 
   useEffect(() => {
-    if (user.IMIE.length === 0) {
+    if (user.imie.length === 0) {
       navigate("/");
     }
   }, []);
   useEffect(() => {
     const fetchAdminDates = async () => {
-      await fetch("http://localhost:8800/api/dates/getreadysshifts", {
+      await fetch(`${apiUrl}/api/gotowezmiany/getreadysshifts`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -39,15 +40,15 @@ export default function AdminPanel({ user }: props) {
           console.log(data);
           const formattedData = data.map(
             (element: {
-              START: string;
-              END: string;
-              ID_RATOWNIKA: number;
-              TITLE: string;
+              start: string;
+              end: string;
+              id_ratownika: number;
+              title: string;
             }) => ({
-              start: element.START,
-              end: element.END,
-              id_ratownika: element.ID_RATOWNIKA,
-              title: element.TITLE,
+              start: element.start,
+              end: element.end,
+              id_ratownika: element.id_ratownika,
+              title: element.title,
             })
           );
           setAdminDates([...adminDates, ...formattedData]);
@@ -58,7 +59,7 @@ export default function AdminPanel({ user }: props) {
   }, []);
   useEffect(() => {
     const fetchAllDates = async () => {
-      await fetch("http://localhost:8800/api/dates/getunaddedshifts", {
+      await fetch(`${apiUrl}/api/gotowezmiany/getunaddedshifts`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -128,7 +129,7 @@ export default function AdminPanel({ user }: props) {
     }
   };
   return (
-    <div className="flex h-screen w-screen">
+    <div className="flex h-screen w-screen font-bold">
       {open && (
         <AdminShiftsList
           setAllFetchedDates={setAllFetchedDates}

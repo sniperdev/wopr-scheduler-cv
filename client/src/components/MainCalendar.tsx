@@ -7,6 +7,7 @@ import MainModal from "./MainModal";
 import { EventClickArg } from "@fullcalendar/core";
 import { DateList } from "../interfaces/DateList";
 import { User } from "../interfaces/User";
+import {apiUrl} from "../utils/apiUrl";
 
 interface DateClickInfo {
   date: Date;
@@ -87,13 +88,13 @@ const MainCalendar = ({
     });
   };
   const addData = async (shiftStart: string, shiftEnd: string) => {
-    await fetch("http://localhost:8800/api/dates/adddate", {
+    await fetch(`${apiUrl}/api/dates/adddate`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id_ratownika: user.ID_RATOWNIKA,
+        id_ratownika: user.id_ratownika,
         start: clickedDate + "T" + shiftStart,
         end: clickedDate + "T" + shiftEnd,
         zmiana: option,
@@ -152,13 +153,13 @@ const MainCalendar = ({
   };
 
   const deleteDatefromDB = async (formattedData: string) => {
-    await fetch("http://localhost:8800/api/dates/removedate", {
+    await fetch(`${apiUrl}/api/dates/removedate`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id_ratownika: user.ID_RATOWNIKA,
+        id_ratownika: user.id_ratownika,
         start: formattedData,
       }),
     });

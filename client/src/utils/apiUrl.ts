@@ -1,0 +1,1 @@
+export const apiUrl = "https://wopr-scheduler-server.onrender.com"

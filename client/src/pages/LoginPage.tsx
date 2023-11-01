@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { User } from "../interfaces/User";
+import {apiUrl} from "../utils/apiUrl";
 
 interface props {
   setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
@@ -15,12 +16,12 @@ const LoginPage = ({ setUser }: props) => {
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const respone = await fetch("http://localhost:8800/api/auth/login", {
+    await fetch(`${apiUrl}/api/ratownicy/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email: name, HASLO: password }),
+      body: JSON.stringify({ email: name, haslo: password }),
     })
       .then((response) => {
         if (response.ok) {
@@ -33,8 +34,8 @@ const LoginPage = ({ setUser }: props) => {
         }
       })
       .then((data) => {
-        setUser(data);
-        if (data.ADMIN === 1) navigate("/adminpanel");
+        setUser(data.data);
+        if (data.data.admin === 1) navigate("/adminpanel");
         else navigate("/app");
       })
       .catch((err) => console.log(err));
@@ -42,6 +43,8 @@ const LoginPage = ({ setUser }: props) => {
 
   return (
     <div className="w-screen h-screen flex flex-col items-center justify-center">
+      <p>Aby zalogować się wpisz igi@wp.pl oraz 1234</p>
+      <p>Aby zalogować się wpisz anna@example.com oraz 5678</p>
       {error === 400 ? (
         <p className="text-red-700 font-bold">Błędne hasło!</p>
       ) : null}

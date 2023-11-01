@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { DateList } from "../interfaces/DateList";
 import { AiOutlineClose } from "react-icons/ai";
 
-interface props {
+interface Props {
   onClose: React.Dispatch<React.SetStateAction<boolean>>;
   handledDate: (e: React.FormEvent) => void;
   setOption: React.Dispatch<React.SetStateAction<string>>;
@@ -25,7 +25,7 @@ const MainModal = ({
   style,
   optionsToShow,
   nextMonthDate,
-}: props) => {
+}: Props) => {
   useEffect(() => {
     const isWeekend = () => {
       const date = new Date(clickedDate);

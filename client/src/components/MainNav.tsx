@@ -1,5 +1,4 @@
 import React from "react";
-import { IoSend } from "react-icons/io5";
 import exportFromJSON from "export-from-json";
 import { User } from "../interfaces/User";
 import { DateList } from "../interfaces/DateList";
@@ -16,16 +15,8 @@ const MainNav = ({
   user,
   declaredHours,
   declaredSalary,
-  dateList,
   setReadyShifts,
 }: Props) => {
-  const exportToExcel = () => {
-    exportFromJSON({
-      data: dateList,
-      fileName: "test",
-      exportType: "xls",
-    });
-  };
   return (
     <nav className="flex p-2">
       <div className="shadow-lg w-40 p-2 mx-2 rounded-2xl">
@@ -36,7 +27,7 @@ const MainNav = ({
       </div>
 
       <div className="shadow-lg w-40 p-2 rounded-2xl text-center">
-        {`${user.IMIE} ${user.NAZWISKO}`}
+        {`${user.imie} ${user.nazwisko}`}
       </div>
       <div className="ml-auto">
         <button

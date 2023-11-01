@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { User } from "../interfaces/User";
 import { DateList } from "../interfaces/DateList";
 import MainReadyShifts from "../components/MainReadyShifts";
+import {apiUrl} from "../utils/apiUrl";
 interface props {
   user: User;
 }
@@ -18,20 +19,20 @@ const MainPage = ({ user }: props) => {
 
   useEffect(() => {
     const fetchDateList = async () => {
-      await fetch("http://localhost:8800/api/dates/alldates", {
+      await fetch(`${apiUrl}/api/daty/alldates`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id_ratownika: user.ID_RATOWNIKA }),
+        body: JSON.stringify({ id_ratownika: user.id_ratownika.toString() }),
       })
         .then((response) => response.json())
         .then((data) => {
           const formattedData = data.map(
-            (element: { ZMIANA: Number; START: string; END: string }) => ({
-              title: element.ZMIANA,
-              start: element.START,
-              end: element.END,
+            (element: { zmiana: string; start: string; end: string }) => ({
+              title: element.zmiana,
+              start: element.start,
+              end: element.end,
               backgroundColor: "green",
             })
           );
@@ -43,7 +44,7 @@ const MainPage = ({ user }: props) => {
   }, []);
 
   useEffect(() => {
-    if (user.IMIE.length === 0) {
+    if (user.imie.length === 0) {
       navigate("/");
     }
   }, []);
@@ -53,7 +54,7 @@ const MainPage = ({ user }: props) => {
   }, [declaredHours]);
 
   return (
-    <div className="h-screen">
+    <div className="h-screen font-bold">
       <MainNav
         user={user}
         declaredHours={declaredHours}

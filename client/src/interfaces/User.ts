@@ -1,7 +1,7 @@
 export interface User {
-  ID_RATOWNIKA: string;
-  IMIE: string;
-  NAZWISKO: string;
-  TEL: number;
-  EMAIL: string;
+  id_ratownika: string;
+  imie: string;
+  nazwisko: string;
+  tel: number;
+  email: string;
 }

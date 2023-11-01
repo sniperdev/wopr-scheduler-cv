@@ -3,7 +3,7 @@ import { allDates } from "../interfaces/allDates";
 import AdminOneShift from "./AdminOneShift";
 import { DateList } from "../interfaces/DateList";
 
-interface props {
+interface Props {
   setAllFetchedDates: React.Dispatch<React.SetStateAction<allDates[]>>;
   allFetchedDates: allDates[];
   setAdminDates: React.Dispatch<React.SetStateAction<DateList[]>>;
@@ -14,7 +14,7 @@ const AdminShiftsList = ({
   allFetchedDates,
   setAdminDates,
   adminDates,
-}: props) => {
+}: Props) => {
   return (
     <div className="w-1/3 h-screen p-2 py-4">
       <h2>Choose Shifts:</h2>

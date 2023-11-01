@@ -2,7 +2,7 @@ import React from "react";
 import { DateList } from "../interfaces/DateList";
 import { allDates } from "../interfaces/allDates";
 
-interface props {
+interface Props {
   title: number;
   name: string;
   surname: string;
@@ -24,7 +24,7 @@ const AdminOneShift = ({
   adminDates,
   setAllFetchedDates,
   allFetchedDates,
-}: props) => {
+}: Props) => {
   const handleClick = () => {
     const element = allFetchedDates.find((e) => {
       return e.nazwisko === surname && e.start === start;
