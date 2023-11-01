@@ -1,6 +1,6 @@
 import LoginPage from "./pages/LoginPage";
 import {
-  BrowserRouter as Router,
+  BrowserRouter as Router, HashRouter,
   Route,
   Routes,
 } from "react-router-dom";
@@ -12,7 +12,7 @@ import AdminPanel from "./pages/AdminPanel";
 function App() {
   const [user, setUser] = useState<User>();
   return (
-    <Router>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<LoginPage setUser={setUser} />} />
         {user ? (
@@ -30,7 +30,7 @@ function App() {
           </>
         )}
       </Routes>
-    </Router>
+    </HashRouter>
   );
 }
 
